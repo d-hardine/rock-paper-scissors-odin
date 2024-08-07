@@ -34,12 +34,10 @@ function playRound(human, computer) {
         if (computer == 'scissors') {
             console.log('you win! ' + human + ' beats ' + computer);
             humanScore = humanScore + 1;
-            //return humanScore;
         }
         else if (computer == 'paper') {
             console.log('you lose! ' + computer + ' beats ' + human);
             computerScore = computerScore + 1;
-            //return computerScore;
         }
         else {
             console.log("it's a tie")
@@ -49,12 +47,10 @@ function playRound(human, computer) {
         if (computer == 'rock') {
             console.log('you win! ' + human + ' beats ' + computer);
             humanScore = humanScore + 1;
-            //return humanScore;
         }
         else if (computer == 'scissors') {
             console.log('you lose! ' + computer + ' beats ' + human);
             computerScore = computerScore + 1;
-            //return computerScore;
         }
         else (
             console.log("it's a tie")            
@@ -64,18 +60,15 @@ function playRound(human, computer) {
         if (computer == 'paper') {
             console.log('you win! ' + human + ' beats ' + computer);
             humanScore = humanScore + 1;
-            //return humanScore;
         }
         else if (computer == 'rock') {
             console.log('you lose! ' + computer + ' beats ' + human);
             computerScore = computerScore + 1;
-            //return computerScore;
         }
         else (
             console.log("it's a tie")            
         )
     }
-    console.log("your score: " + humanScore + " ,computer score: " + computerScore);
     return humanScore, computerScore;
 }
 
@@ -95,22 +88,66 @@ let computerScore = 0;
 let fiveRounds = 0;
 //playGame();
 
-document.querySelector('.containerButton').addEventListener('click', function(e) {
+
+const containerButton = document.querySelector('.containerButton');
+
+let log = document.createElement('div');
+log.classList.add('logs');
+containerButton.appendChild(log);
+
+containerButton.addEventListener('click', function(e) {
+    if (fiveRounds >= 5) {
+        fiveRounds = 0;
+        humanScore = 0;
+        computerScore = 0;
+        containerButton.removeChild(log);
+            
+        log = document.createElement('div');
+        log.classList.add('logs');
+        containerButton.appendChild(log);
+    }
+
     fiveRounds = fiveRounds + 1;
-    console.log('round ' + fiveRounds);
+
+    const divRounds = document.createElement('div');
+    divRounds.textContent = 'round ' + fiveRounds;
+    divRounds.classList.add('rounds');
+    log.appendChild(divRounds);
+ 
     const human = e.target.getAttribute('class');
     const computer = getComputerChoice();
-    console.log("Your choice: " + human);
-    console.log("Computer choice: " + computer);
+    const divChoices = document.createElement('div');
+    divChoices.textContent = "Your choice: " + human + ", Computer choice: " + computer;
+    divChoices.classList.add('choices');
+    log.appendChild(divChoices);
+
     playRound(human, computer);
+
     if (fiveRounds == 5) {
         if (humanScore > computerScore) {
+            console.log("your score: " + humanScore + " ,computer score: " + computerScore);
             console.log('You win this 5 rounds!');
-            fiveRounds = 0;
+            const resultsA = document.createElement('div');
+            const resultsB = document.createElement('div');
+            resultsA.textContent = "your score: " + humanScore + " ,computer score: " + computerScore;
+            resultsB.textContent = 'You win this 5 rounds!';
+            resultsA.classList.add('results');
+            resultsB.classList.add('results');
+            log.appendChild(resultsA);
+            log.appendChild(resultsB);
+
         }
         else {
-            console.log('The computer this 5 rounds!');
-            fiveRounds = 0;
+            console.log("your score: " + humanScore + " ,computer score: " + computerScore);
+            console.log('You lose this 5 rounds!');
+            const resultsA = document.createElement('div');
+            const resultsB = document.createElement('div');
+            resultsA.textContent = "your score: " + humanScore + " ,computer score: " + computerScore;
+            resultsB.textContent = 'You lose this 5 rounds!';
+            resultsA.classList.add('results');
+            resultsB.classList.add('results');
+            log.appendChild(resultsA);
+            log.appendChild(resultsB);
         }
     }
 });
