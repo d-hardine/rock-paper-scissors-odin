@@ -30,44 +30,47 @@ function getComputerChoice() {
 } */
 
 function playRound(human, computer) {
+    battleLog = document.createElement('div');
+    battleLog.classList.add('battle-logs');
+    log.appendChild(battleLog);
     if (human == 'rock') {
         if (computer == 'scissors') {
-            console.log('you win! ' + human + ' beats ' + computer);
+            battleLog.textContent = "you win! " + human + " beats "   + computer;
             humanScore = humanScore + 1;
         }
         else if (computer == 'paper') {
-            console.log('you lose! ' + computer + ' beats ' + human);
+            battleLog.textContent = "you lose! " + human + " beats "   + computer;
             computerScore = computerScore + 1;
         }
         else {
-            console.log("it's a tie")
+            battleLog.textContent = "it's a tie";
         }
     }
     if (human == 'paper') {
         if (computer == 'rock') {
-            console.log('you win! ' + human + ' beats ' + computer);
+            battleLog.textContent = "you win! " + human + " beats "   + computer;;
             humanScore = humanScore + 1;
         }
         else if (computer == 'scissors') {
-            console.log('you lose! ' + computer + ' beats ' + human);
+            battleLog.textContent = "you lose! " + human + " beats "   + computer;
             computerScore = computerScore + 1;
         }
-        else (
-            console.log("it's a tie")            
-        )
+        else {
+            battleLog.textContent = "it's a tie";         
+        }
     }
     if (human == 'scissors') {
         if (computer == 'paper') {
-            console.log('you win! ' + human + ' beats ' + computer);
+            battleLog.textContent = "you win! " + human + " beats "   + computer;;
             humanScore = humanScore + 1;
         }
         else if (computer == 'rock') {
-            console.log('you lose! ' + computer + ' beats ' + human);
+            battleLog.textContent = "you lose! " + human + " beats "   + computer;
             computerScore = computerScore + 1;
         }
-        else (
-            console.log("it's a tie")            
-        )
+        else {
+            battleLog.textContent = "it's a tie";
+        }
     }
     return humanScore, computerScore;
 }
@@ -93,18 +96,18 @@ const containerButton = document.querySelector('.containerButton');
 
 let log = document.createElement('div');
 log.classList.add('logs');
-containerButton.appendChild(log);
+document.body.appendChild(log);
 
 containerButton.addEventListener('click', function(e) {
     if (fiveRounds >= 5) {
         fiveRounds = 0;
         humanScore = 0;
         computerScore = 0;
-        containerButton.removeChild(log);
+        document.body.removeChild(log);
             
         log = document.createElement('div');
         log.classList.add('logs');
-        containerButton.appendChild(log);
+        document.body.appendChild(log);
     }
 
     fiveRounds = fiveRounds + 1;
@@ -125,8 +128,6 @@ containerButton.addEventListener('click', function(e) {
 
     if (fiveRounds == 5) {
         if (humanScore > computerScore) {
-            console.log("your score: " + humanScore + " ,computer score: " + computerScore);
-            console.log('You win this 5 rounds!');
             const resultsA = document.createElement('div');
             const resultsB = document.createElement('div');
             resultsA.textContent = "your score: " + humanScore + " ,computer score: " + computerScore;
@@ -137,13 +138,22 @@ containerButton.addEventListener('click', function(e) {
             log.appendChild(resultsB);
 
         }
-        else {
-            console.log("your score: " + humanScore + " ,computer score: " + computerScore);
-            console.log('You lose this 5 rounds!');
+        else if (humanScore < computerScore) {
             const resultsA = document.createElement('div');
             const resultsB = document.createElement('div');
             resultsA.textContent = "your score: " + humanScore + " ,computer score: " + computerScore;
             resultsB.textContent = 'You lose this 5 rounds!';
+            resultsA.classList.add('results');
+            resultsB.classList.add('results');
+            log.appendChild(resultsA);
+            log.appendChild(resultsB);
+        }
+
+        else {
+            const resultsA = document.createElement('div');
+            const resultsB = document.createElement('div');
+            resultsA.textContent = "your score: " + humanScore + " ,computer score: " + computerScore;
+            resultsB.textContent = 'The score is tie!';
             resultsA.classList.add('results');
             resultsB.classList.add('results');
             log.appendChild(resultsA);
