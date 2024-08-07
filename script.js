@@ -39,7 +39,7 @@ function playRound(human, computer) {
             humanScore = humanScore + 1;
         }
         else if (computer == 'paper') {
-            battleLog.textContent = "you lose! " + human + " beats "   + computer;
+            battleLog.textContent = "you lose! " + computer + " beats "   + human;
             computerScore = computerScore + 1;
         }
         else {
