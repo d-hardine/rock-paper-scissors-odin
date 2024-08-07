@@ -13,7 +13,7 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-function getHumanChoice() {
+/* function getHumanChoice() {
     let i = 0;
     while (i < 1) {
         let humanChoice = prompt("Rock, paper, or scissors?:");
@@ -27,7 +27,7 @@ function getHumanChoice() {
         }
     }
     
-}
+} */
 
 function playRound(human, computer) {
     if (human == 'rock') {
@@ -79,7 +79,7 @@ function playRound(human, computer) {
     return humanScore, computerScore;
 }
 
-function playGame() {
+/*function playGame() {
     for (let i = 1; i <= 5; i++) {
         console.log(i)
         const human = getHumanChoice();
@@ -88,8 +88,29 @@ function playGame() {
         console.log("Computer choice: " + computer);
         playRound(human, computer);
     }
-}
+}*/
 
 let humanScore = 0;
 let computerScore = 0;
-playGame();
+let fiveRounds = 0;
+//playGame();
+
+document.querySelector('.containerButton').addEventListener('click', function(e) {
+    fiveRounds = fiveRounds + 1;
+    console.log('round ' + fiveRounds);
+    const human = e.target.getAttribute('class');
+    const computer = getComputerChoice();
+    console.log("Your choice: " + human);
+    console.log("Computer choice: " + computer);
+    playRound(human, computer);
+    if (fiveRounds == 5) {
+        if (humanScore > computerScore) {
+            console.log('You win this 5 rounds!');
+            fiveRounds = 0;
+        }
+        else {
+            console.log('The computer this 5 rounds!');
+            fiveRounds = 0;
+        }
+    }
+});
